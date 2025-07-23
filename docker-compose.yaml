@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://backend:3001
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=mysql-container
+      - DB_PORT=3306
+      - DB_USER=root
+      - DB_PASSWORD=dao@02112003
+      - DB_NAME=keibi_dev
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-container
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=dao@02112003
+      - MYSQL_DATABASE=keibi_dev
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
