@@ -8,35 +8,35 @@ import { Driver } from './driver.entity';
 @Controller()
 export class AppController {
     constructor(
-    private readonly appService: AppService,
+        private readonly appService: AppService,
 
-    @InjectRepository(Driver)
-    private readonly driverRepo: Repository<Driver>,
-    ) {}
+        @InjectRepository(Driver)
+        private readonly driverRepo: Repository<Driver>,
+    ) { }
 
     @Get('hello')
     getHello(): string {
-    return this.appService.getHello();  // gọi từ service
+        return this.appService.getHello();  // gọi từ service
     }
 
 
     @Get('drivers')
     async getAllDrivers(): Promise<Driver[]> {
-    return this.appService.getAllDrivers();
+        return this.appService.getAllDrivers();
     }
 
     @Get('drivers/:id')
     async getDriverById(@Param('id') id: number): Promise<Driver> {
-    const driver = await this.appService.getDriverById(id);
-    if (!driver) {
-        throw new NotFoundException(`Driver with ID ${id} not found`);
-    }
-    return driver;
+        const driver = await this.appService.getDriverById(id);
+        if (!driver) {
+            throw new NotFoundException(`Driver with ID ${id} not found`);
+        }
+        return driver;
     }
 
     @Post('drivers')
     async create(@Body() body: Partial<Driver>): Promise<Driver> {
-    return this.appService.createDriver(body);
+        return this.appService.createDriver(body);
     }
 
     @Put('drivers/:id') // hoặc @Patch nếu bạn muốn update một phần
@@ -44,9 +44,9 @@ export class AppController {
         @Param('id') id: number,
         @Body() updateData: Partial<Driver>
     ): Promise<Driver> {
-    return this.appService.update(id, updateData);
+        return this.appService.update(id, updateData);
     }
-    
+
     @Delete('drivers/:id')
     async remove(@Param('id') id: number): Promise<{ message: string }> {
         await this.appService.remove(id);

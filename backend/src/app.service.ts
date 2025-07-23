@@ -8,7 +8,7 @@ export class AppService {
   constructor(
     @InjectRepository(Driver)
     private readonly driverRepo: Repository<Driver>,
-  ) {}
+  ) { }
 
   getHello(): string {
     return 'Hello World!';
@@ -38,11 +38,11 @@ export class AppService {
   }
 
   async remove(id: number): Promise<void> {
-  const result = await this.driverRepo.delete(id);
+    const result = await this.driverRepo.delete(id);
 
-  if (result.affected === 0) {
-    throw new Error(`Driver with id ${id} not found`);
-  }
+    if (result.affected === 0) {
+      throw new Error(`Driver with id ${id} not found`);
+    }
   }
 
-  }
+}
