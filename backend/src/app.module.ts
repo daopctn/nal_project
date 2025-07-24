@@ -4,14 +4,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import typeOrmConfig from './config/typeorm.config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Driver } from './driver.entity';
+import { DriverModule } from './driver/driver.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
-    TypeOrmModule.forFeature([Driver])
-    // TypeOrmModule.forFeature([Driver]),  // <- kết nối entity
+    DriverModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
